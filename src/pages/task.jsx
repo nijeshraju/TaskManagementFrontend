@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const backendUrl = process.env.BACKEND_URL;
+
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
@@ -8,7 +10,7 @@ const Tasks = () => {
 
   const fetchTasks = async () => {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:8080/api/tasks", {
+    const res = await axios.get(`${backendUrl}/tasks`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setTasks(res.data.data);
@@ -22,7 +24,7 @@ const Tasks = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     await axios.post(
-      "http://localhost:8080/api/tasks",
+      `${backendUrl}/tasks`,
       { title, description },
       { headers: { Authorization: `Bearer ${token}` } },
     );
@@ -32,7 +34,7 @@ const Tasks = () => {
   const handleUpdateStatus = async (id, status) => {
     const token = localStorage.getItem("token");
     await axios.put(
-      `http://localhost:8080/api/tasks/${id}`,
+      `${backendUrl}/tasks/${id}`,
       { status },
       { headers: { Authorization: `Bearer ${token}` } },
     );
