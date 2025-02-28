@@ -20,7 +20,7 @@ const Login = ({ setIsAuthenticated }) => {
       setIsAuthenticated(true);
       navigate("/");
     } catch (error) {
-      alert("Login failed");
+      console.log(error);
     }
   };
 
